@@ -4,4 +4,4 @@
 
 ### Solutions
 
-    - [Day 1](https://github.com/mscandan/AoC-2021/blob/master/src/day01)
+- [Day 1](https://github.com/mscandan/AoC-2021/blob/master/src/day01)
