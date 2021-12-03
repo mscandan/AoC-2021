@@ -9,16 +9,8 @@ const part1 = (data: Array<string>): number => {
   let gamma = "",
     epsilon = "";
   for (let i = 0; i < data[0].length; i++) {
-    let oneCount = 0,
-      zeroCount = 0;
-    for (let j = 0; j < data.length; j++) {
-      if (data[j][i] === "1") {
-        oneCount++;
-      } else {
-        zeroCount++;
-      }
-    }
-    if (oneCount > zeroCount) {
+    const { countOfOne, countOfZero } = calculateCountsOnColumn(data, i);
+    if (countOfOne > countOfZero) {
       gamma += "1";
       epsilon += "0";
     } else {
@@ -30,40 +22,68 @@ const part1 = (data: Array<string>): number => {
 };
 
 const part2 = (data: Array<string>): number => {
-  let o2Rating: Array<string> = JSON.parse(JSON.stringify(data));
-  let co2Rating: Array<string> = JSON.parse(JSON.stringify(data));
+  return (
+    calculateRating(data, 0, CALCULATE_FOR.O2) *
+    calculateRating(data, 0, CALCULATE_FOR.CO2)
+  );
+};
 
-  let index = 0;
-  while (index <= 11) {
-    if (o2Rating.length > 1) {
-      let zeroCount = 0,
-        oneCount = 0;
-      for (let i = 0; i < o2Rating.length; i++) {
-        if (o2Rating[i][index] === "1") oneCount++;
-        else zeroCount++;
-      }
-      if (oneCount > zeroCount || oneCount === zeroCount) {
-        o2Rating = o2Rating.filter((el) => el[index] === "1");
-      } else o2Rating = o2Rating.filter((el) => el[index] === "0");
-      index++;
-    } else break;
+type CountType = {
+  countOfOne: number;
+  countOfZero: number;
+};
+
+enum CALCULATE_FOR {
+  O2 = "O2",
+  CO2 = "CO2",
+}
+
+const calculateCountsOnColumn = (
+  data: Array<string>,
+  currIndex: number
+): CountType => {
+  let countOfOne = 0,
+    countOfZero = 0;
+  for (let i = 0; i < data.length; i++) {
+    if (data[i][currIndex] === "1") {
+      countOfOne++;
+    } else {
+      countOfZero++;
+    }
   }
+  return { countOfOne, countOfZero };
+};
 
-  index = 0;
-  while (index <= 11) {
-    if (co2Rating.length > 1) {
-      let zeroCount = 0,
-        oneCount = 0;
-      for (let i = 0; i < co2Rating.length; i++) {
-        if (co2Rating[i][index] === "1") oneCount++;
-        else zeroCount++;
-      }
-      if (oneCount > zeroCount || oneCount === zeroCount) {
-        co2Rating = co2Rating.filter((el) => el[index] === "0");
-      } else co2Rating = co2Rating.filter((el) => el[index] === "1");
-      index++;
-    } else break;
-  }
-
-  return parseInt(o2Rating[0], 2) * parseInt(co2Rating[0], 2);
+const calculateRating = (
+  data: Array<string>,
+  currIndex: number,
+  calculateFor: CALCULATE_FOR
+): number => {
+  if (data.length > 1) {
+    const { countOfOne, countOfZero } = calculateCountsOnColumn(
+      data,
+      currIndex
+    );
+    if (countOfZero === countOfOne || countOfOne > countOfZero) {
+      return calculateRating(
+        data.filter((el) =>
+          calculateFor === CALCULATE_FOR.O2
+            ? el[currIndex] === "1"
+            : el[currIndex] === "0"
+        ),
+        currIndex + 1,
+        calculateFor
+      );
+    } else {
+      return calculateRating(
+        data.filter((el) =>
+          calculateFor === CALCULATE_FOR.O2
+            ? el[currIndex] === "0"
+            : el[currIndex] === "1"
+        ),
+        currIndex + 1,
+        calculateFor
+      );
+    }
+  } else return parseInt(data[0], 2);
 };
