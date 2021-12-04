@@ -1,14 +1,8 @@
 import { readFileSync } from "fs";
+import { range, sum } from "../helpers";
 
-export const sum = (xs: number[]): number => xs.reduce((sum, x) => sum + x, 0);
-
-export const range = (start: number, end: number, step = 1): number[] =>
-  [...Array(end - start).keys()]
-    .map((i) => start + i * step)
-    .filter((x) => x < end);
-
-type Row = (number | null)[];
-type Board = Row[];
+type Row = Array<number | null>;
+type Board = Array<Row>;
 
 const filterBoard = (board: Board, draw: number): Board =>
   board.map((row) => row.map((n) => (n !== draw ? n : null)));
