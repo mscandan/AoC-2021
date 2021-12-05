@@ -68,14 +68,13 @@ const part1_2 = (data: Array<string>, part: '1' | '2') => {
       }
     } else {
       if (part === '2') {
-        // create a equation for diagonal line
         const [x1, y1, x2, y2] = pairs[i];
         // (y - y1)/(y2 - y1) = (x-x1)/(x2-x1)
         if (y1 < y2) {
           if (x1 < x2) {
             for (let i = y1; i <= y2; i++) {
               for (let j = x1; j <= x2; j++) {
-                if ((i - y1) / (y2 - y1) === (j - x1) / (x2 - x1)) {
+                if (isInLine(j, i, x1, y1, x2, y2)) {
                   if (seens.has(`${j},${i}`)) {
                     const val = seens.get(`${j},${i}`);
                     seens.set(`${j},${i}`, val + 1);
@@ -88,7 +87,7 @@ const part1_2 = (data: Array<string>, part: '1' | '2') => {
           } else {
             for (let i = y1; i <= y2; i++) {
               for (let j = x2; j <= x1; j++) {
-                if ((i - y1) / (y2 - y1) === (j - x1) / (x2 - x1)) {
+                if (isInLine(j, i, x1, y1, x2, y2)) {
                   if (seens.has(`${j},${i}`)) {
                     const val = seens.get(`${j},${i}`);
                     seens.set(`${j},${i}`, val + 1);
@@ -103,7 +102,7 @@ const part1_2 = (data: Array<string>, part: '1' | '2') => {
           if (x1 < x2) {
             for (let i = y2; i <= y1; i++) {
               for (let j = x1; j <= x2; j++) {
-                if ((i - y1) / (y2 - y1) === (j - x1) / (x2 - x1)) {
+                if (isInLine(j, i, x1, y1, x2, y2)) {
                   if (seens.has(`${j},${i}`)) {
                     const val = seens.get(`${j},${i}`);
                     seens.set(`${j},${i}`, val + 1);
@@ -116,7 +115,7 @@ const part1_2 = (data: Array<string>, part: '1' | '2') => {
           } else {
             for (let i = y2; i <= y1; i++) {
               for (let j = x2; j <= x1; j++) {
-                if ((i - y1) / (y2 - y1) === (j - x1) / (x2 - x1)) {
+                if (isInLine(j, i, x1, y1, x2, y2)) {
                   if (seens.has(`${j},${i}`)) {
                     const val = seens.get(`${j},${i}`);
                     seens.set(`${j},${i}`, val + 1);
@@ -134,4 +133,8 @@ const part1_2 = (data: Array<string>, part: '1' | '2') => {
   let ans = 0;
   seens.forEach(val => val > 1 && ans++);
   return ans;
+};
+
+const isInLine = (x: number, y: number, x1: number, y1: number, x2: number, y2: number): boolean => {
+  return (y - y1) / (y2 - y1) === (x - x1) / (x2 - x1);
 };
