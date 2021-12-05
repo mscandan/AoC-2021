@@ -69,7 +69,6 @@ const part1_2 = (data: Array<string>, part: '1' | '2') => {
     } else {
       if (part === '2') {
         const [x1, y1, x2, y2] = pairs[i];
-        // (y - y1)/(y2 - y1) = (x-x1)/(x2-x1)
         if (y1 < y2) {
           if (x1 < x2) {
             for (let i = y1; i <= y2; i++) {
@@ -135,6 +134,8 @@ const part1_2 = (data: Array<string>, part: '1' | '2') => {
   return ans;
 };
 
+// check the given (x,y) coordinates is in diagonal line
 const isInLine = (x: number, y: number, x1: number, y1: number, x2: number, y2: number): boolean => {
+  // (y - y1)/(y2 - y1) = (x-x1)/(x2-x1)
   return (y - y1) / (y2 - y1) === (x - x1) / (x2 - x1);
 };
