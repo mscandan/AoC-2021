@@ -1,4 +1,3 @@
-import { stringify } from 'querystring';
 import { data } from './data';
 
 export const solution = () => {
