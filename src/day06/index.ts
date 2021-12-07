@@ -34,7 +34,6 @@ const part2 = (data: string): number => {
     const parents = numFish.shift() as number;
     numFish.push(parents);
     numFish[6] += parents;
-    console.log(numFish);
   }
   return numFish.reduce((acc, n) => acc + n);
 };
