@@ -11,3 +11,4 @@
 - [Day 5](https://github.com/mscandan/AoC-2021/blob/master/src/day05)
 - [Day 6](https://github.com/mscandan/AoC-2021/blob/master/src/day06)
 - [Day 7](https://github.com/mscandan/AoC-2021/blob/master/src/day07)
+- [Day 8](https://github.com/mscandan/AoC-2021/blob/master/src/day08)
