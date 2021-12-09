@@ -2,7 +2,7 @@
   "name": "AoC-2021",
   "version": "1.0.0",
   "description": "Advent of Code 2021 solutions written in TypeScript",
-  "main": "index.ts",
+  "main": "src/index.ts",
   "repository": "https://github.com/mscandan/AoC-2021.git",
   "author": "M. Selcuk Candan <mehmetselcukcandan@icloud.com>",
   "license": "MIT",
@@ -11,9 +11,11 @@
     "typescript": "^4.5.2"
   },
   "scripts": {
-    "start": "ts-node index.ts"
+    "start": "ts-node src/index.ts",
+    "watch": "ts-node-dev --respawn src/index.ts"
   },
   "devDependencies": {
-    "@types/node": "^16.11.11"
+    "@types/node": "^16.11.11",
+    "ts-node-dev": "^1.1.8"
   }
 }
